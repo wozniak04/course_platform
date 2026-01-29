@@ -1,6 +1,5 @@
 class User:
-    def __init__(self, id, email, age, region="PL"):
-        self.id = id
+    def __init__(self, email, age, region="PL"):
         self.age = age
         self.region = region
         self.is_premium = False

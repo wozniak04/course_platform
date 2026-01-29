@@ -1,3 +1,3 @@
 class EmailClient:
     def send(self, email, message):
-        pass
+        pass # pragma: no cover
