@@ -1,6 +1,6 @@
 # course_platform - System Zarządzania Kursami
 
-Aplikacja wspomaga zarządzanie kursami online, zapisywanie użytkowników oraz wystawianie recenzji.
+Aplikacja wspomaga zarządzanie kursami online
 
 ### Autor
 - **Mikołaj Woźniak** 
