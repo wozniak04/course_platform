@@ -88,3 +88,25 @@ class TestCourseAPI:
         r = requests.patch(f"{self.URL}/courses/Java", json={"title": "Python"})
         assert r.status_code == 409
         assert "already exists" in r.json()["message"]
+    def test_publish_and_hide_course_flow(self):
+        
+        title = "Cloud_Computing"
+        requests.post(f"{self.URL}/courses", json={
+            "title": title, "price": 300, "materials_count": 20, "owner": "Admin"
+        })
+
+        
+        r_pub = requests.post(f"{self.URL}/courses/{title}/publish")
+        assert r_pub.status_code == 200
+        assert f"Course '{title}' has been published" in r_pub.json()["message"]
+
+        
+        r_hide = requests.post(f"{self.URL}/courses/{title}/hide")
+        assert r_hide.status_code == 200
+        assert f"Course '{title}' is now hidden" in r_hide.json()["message"]
+
+    def test_publish_course_404(self):
+        
+        r = requests.post(f"{self.URL}/courses/GhostCourse/publish")
+        assert r.status_code == 404
+        assert "Course not found" in r.json()["error"]

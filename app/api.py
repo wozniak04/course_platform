@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from src.schoolmanager import SchoolManager
 from src.user import User
 from src.course import Course
+from src.emailclient import EmailClient
 
 app = Flask(__name__)
 manager = SchoolManager()
@@ -96,6 +97,26 @@ def update_course(title):
     )
     
     return jsonify({"message": "Course updated", "title": course.title}), 200
+
+@app.route('/courses/<title>/publish', methods=['POST'])
+def publish_course(title):
+    course = manager.get_course_by_title(title)
+    
+    if not course:
+        return jsonify({"error": "Course not found"}), 404
+    
+    course.publishCourse() 
+    return jsonify({"message": f"Course '{title}' has been published"}), 200
+
+@app.route('/courses/<title>/hide', methods=['POST'])
+def hide_course(title):
+    course = manager.get_course_by_title(title)
+    
+    if not course:
+        return jsonify({"error": "Course not found"}), 404
+    
+    course.hideCourse()
+    return jsonify({"message": f"Course '{title}' is now hidden"}), 200
 
 @app.route('/courses/count', methods=['GET'])
 def get_courses_count():

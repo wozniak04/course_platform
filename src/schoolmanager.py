@@ -8,6 +8,14 @@ class SchoolManager:
         self.users = []
         self.courses = []
 
+    def notify_users_about_promotion(self, promo_message):
+        
+        count = 0
+        for user in self.users:
+            self.email_client.send(user.email, promo_message)
+            count += 1
+        return count
+
     def register_user(self, user):
         self.users.append(user)
         return user
